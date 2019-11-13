@@ -1,0 +1,53 @@
+﻿@model  IEnumerable<CoffeeHouse.Data.Models.TableRequest>
+@{
+    ViewData["Title"] = "AllOrders";
+    @if (User.IsInRole("Admin") == true)
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Staff/Views/Shared/_LayoutStaff.cshtml";
+    }
+
+}
+
+<h1>Đặt bàn</h1>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Họ tên khách đặt bàn</th>
+            <th>Ngày đặt</th>
+            <th>Giờ đặt</th>
+            <th>Số điện thoại</th>
+            <th>Lời nhắn</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.Date</td>
+                <td>@item.Time</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Note</td>
+                <td>@item.Status</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-area="" asp-controller="Order" asp-action="CheckTable" asp-route-requestId="@item.Id" asp-route-status="Đã chấp nhận yêu cầu"> 
+                        Xác nhận bàn
+                    </a>
+                    <a class="btn btn-sm btn-primary" asp-area="" asp-controller="Order" asp-action="CheckTable" asp-route-requestId="@item.Id" asp-route-status="Hủy yêu cầu">
+                        Hủy bàn
+                    </a>
+                    <a class="btn btn-sm btn-primary" asp-area="" asp-controller="Order" asp-action="CheckTable" asp-route-requestId="@item.Id" asp-route-status="Yêu cầu đã kết thúc">     
+                        Đã xong
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+</table>
+

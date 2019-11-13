@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coffee Shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link rel="stylesheet" href="~/CoffeeShop/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/animate.css">
+
+    <link rel="stylesheet" href="~/CoffeeShop/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/aos.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="~/CoffeeShop/css/flaticon.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/icomoon.css">
+    <link rel="stylesheet" href="~/CoffeeShop/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-action="Index">Coffee<small>Dallas</small></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">TRANG CHỦ</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Menu" class="nav-link">THỰC ĐƠN</a></li>
+                    <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Services" class="nav-link">DỊCH VỤ</a></li>
+                    <li class="nav-item"><a asp-area="" asp-action="Blog" class="nav-link">BLOG</a></li>
+                    <li class="nav-item"><a asp-area="" asp-action="About" class="nav-link">VỀ CHÚNG TÔI</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="room.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Menu">MUA HÀNG</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Menu">CHI TIẾT SẢN PHẨM</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="ShoppingCart" asp-action="Index">GIỎ HÀNG</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="Checkout">THANH TOÁN</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="room.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            @await Html.PartialAsync("_AccountDropDown")
+                        </div>
+                    </li>
+                    <li class="nav-item"><a asp-area="" asp-action="Contact" class="nav-link">LIÊN HỆ</a></li>
+                    <li class="nav-item cart"><a asp-area="" asp-controller="ShoppingCart" asp-action="Index" class="nav-link"><span class="icon icon-shopping_cart"></span>@await Component.InvokeAsync("ShoppingCartSummary")</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+    <div>
+        @RenderBody()
+    </div>
+    <footer class="ftco-footer ftco-section img">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mt-lg-5">
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Về Chúng Tôi</h2>
+                        <p>Dallas Coffee kỳ vọng mang đến những sản phẩm và cà phê chất lượng cao, lưu giữ hương vị truyền thống Việt Nam kết hợp với phong cách thưởng thức hiện đại.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Blog Gần Đây</h2>
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4" style="background-image: url(/CoffeeShop/images/image_1.jpg);"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="#">Đồ Ăn Ngon</a></h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span> Sept 10, 2019</a></div>
+                                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span> 3</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4" style="background-image: url(/CoffeeShop/images/image_2.jpg);"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="#">Đồ Ăn Ngon</a></h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span> Sept 10, 2019</a></div>
+                                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span> 3</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4 ml-md-4">
+                        <h2 class="ftco-heading-2">Dịch vụ</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Coffee</a></li>
+                            <li><a href="#" class="py-2 d-block">Thức Ăn Ngon</a></li>
+                            <li><a href="#" class="py-2 d-block">Đặt Bàn</a></li>
+                            <li><a href="#" class="py-2 d-block">Giao Hàng</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Liên hệ với chúng tôi?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">233 Đường 3 Tháng 2, P. 10, Quận 10, TP. HCM</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">123 456 7890</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">dallascoffee@gmail.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+    <script src="~/CoffeeShop/js/jquery.min.js"></script>
+    <script src="~/CoffeeShop/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/CoffeeShop/js/popper.min.js"></script>
+    <script src="~/CoffeeShop/js/bootstrap.min.js"></script>
+    <script src="~/CoffeeShop/js/jquery.easing.1.3.js"></script>
+    <script src="~/CoffeeShop/js/jquery.waypoints.min.js"></script>
+    <script src="~/CoffeeShop/js/jquery.stellar.min.js"></script>
+    <script src="~/CoffeeShop/js/owl.carousel.min.js"></script>
+    <script src="~/CoffeeShop/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/CoffeeShop/js/aos.js"></script>
+    <script src="~/CoffeeShop/js/jquery.animateNumber.min.js"></script>
+    <script src="~/CoffeeShop/js/bootstrap-datepicker.js"></script>
+    <script src="~/CoffeeShop/js/jquery.timepicker.min.js"></script>
+    <script src="~/CoffeeShop/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/CoffeeShop/js/google-map.js"></script>
+    <script src="~/CoffeeShop/js/main.js"></script>
+
+</body>
+</html>

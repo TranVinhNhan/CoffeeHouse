@@ -1,0 +1,205 @@
+﻿@model CoffeeHouse.ViewModels.ListOrdersWithId
+
+@if (Model?.Orders.Count() <= 0)
+{
+    <div>
+        @if (User.IsInRole("Admin") == true || User.IsInRole("Staff") == true)
+        {
+            <p>Hiện tại chưa có đơn đặt hàng!</p>
+        }
+        else
+        {
+            <p>Bạn vẫn chưa đặt hàng! Đi mua vài món nào!</p>
+        }
+    </div>
+    return;
+}
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Địa chỉ giao hàng</th>
+            <th>Hóa đơn</th>
+            <th>Tổng cộng</th>
+            @if (User.IsInRole("Admin") == true || User.IsInRole("Staff") == true)
+            {
+                <th>Order Status</th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            if (User.IsInRole("Admin") == true || User.IsInRole("Staff") == true)
+            {
+                if (order.MyOrderViewModel.Status == true)
+                {
+                    <tr>
+                        <td class="text-justify">
+                            <div>
+                                @order.MyOrderViewModel.OrderPlaceDetails.FirstName @order.MyOrderViewModel.OrderPlaceDetails.LastName,
+                                @order.MyOrderViewModel.OrderPlaceDetails.AddressLine
+                                <div>
+                                    @order.MyOrderViewModel.OrderPlaceDetails.AddressLine
+                                </div>
+                            </div>
+                            <div>
+                                @order.MyOrderViewModel.OrderPlaceDetails.City,
+                                @order.MyOrderViewModel.OrderPlaceDetails.State
+                            </div>
+                            <div>
+                                @order.MyOrderViewModel.OrderPlaceDetails.ZipCode
+                            </div>
+                            <div>@order.MyOrderViewModel.OrderPlaceDetails.PhoneNumber</div>
+                            <div>@order.MyOrderViewModel.OrderPlaceDetails.Email</div>
+                            <br />
+                            <div>
+                                @order.MyOrderViewModel.OrderPlacedTime.Date.ToString("dd/MM/yyyy")
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            <table>
+                                <tbody>
+                                    @foreach (var item in order.MyOrderViewModel.DrinkOrderInfo)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                            <td>
+                                                $@item.Price * @item.Qty
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </td>
+                        <td>
+                            $@order.MyOrderViewModel.OrderTotal
+                        </td>
+                        @if (User.IsInRole("Admin") == true || User.IsInRole("Staff") == true)
+                        {
+                            <td>
+                                <form asp-area="" asp-action="CheckOrder" asp-controller="Order" asp-route-orderId="@order.Id" method="post">
+                                    <input class="btn btn-primary" type="submit" value="Delivery Order" />
+                                </form>
+                                <p style="color: blue;">Status: Deliveried</p>
+                            </td>
+                        }
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td class="text-justify">
+                            <div>
+                                @order.MyOrderViewModel.OrderPlaceDetails.FirstName @order.MyOrderViewModel.OrderPlaceDetails.LastName,
+                                @order.MyOrderViewModel.OrderPlaceDetails.AddressLine
+                                <div>
+                                    @order.MyOrderViewModel.OrderPlaceDetails.AddressLine
+                                </div>
+                            </div>
+                            <div>
+                                @order.MyOrderViewModel.OrderPlaceDetails.City,
+                                @order.MyOrderViewModel.OrderPlaceDetails.State
+                            </div>
+                            <div>
+                                @order.MyOrderViewModel.OrderPlaceDetails.ZipCode
+                            </div>
+                            <div>@order.MyOrderViewModel.OrderPlaceDetails.PhoneNumber</div>
+                            <div>@order.MyOrderViewModel.OrderPlaceDetails.Email</div>
+                            <br />
+                            <div>
+                                @order.MyOrderViewModel.OrderPlacedTime.Date.ToString("dd/MM/yyyy")
+                            </div>
+
+                        </td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    @foreach (var item in order.MyOrderViewModel.DrinkOrderInfo)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                            <td>
+                                                $@item.Price * @item.Qty
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            $@order.MyOrderViewModel.OrderTotal
+                        </td>
+                        @if (User.IsInRole("Admin") == true || User.IsInRole("Staff") == true)
+                        {
+                            <td>
+                                <form asp-area="" asp-action="CheckOrder" asp-controller="Order" asp-route-orderId="@order.Id" method="post">
+                                    <input class="btn btn-primary" type="submit" value="Xác nhận đơn hàng" />
+                                </form>
+                                <p style="color: red;">Status: Waiting</p>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-justify">
+                        <div>
+                            @order.MyOrderViewModel.OrderPlaceDetails.FirstName @order.MyOrderViewModel.OrderPlaceDetails.LastName,
+                            @order.MyOrderViewModel.OrderPlaceDetails.AddressLine
+                            <div>
+                                @order.MyOrderViewModel.OrderPlaceDetails.AddressLine
+                            </div>
+                        </div>
+                        <div>
+                            @order.MyOrderViewModel.OrderPlaceDetails.City,
+                            @order.MyOrderViewModel.OrderPlaceDetails.State
+                        </div>
+                        <div>
+                            @order.MyOrderViewModel.OrderPlaceDetails.ZipCode
+                        </div>
+                        <div>@order.MyOrderViewModel.OrderPlaceDetails.PhoneNumber</div>
+                        <div>@order.MyOrderViewModel.OrderPlaceDetails.Email</div>
+                        <br />
+                        <div>
+                            @order.MyOrderViewModel.OrderPlacedTime.Date.ToString("dd/MM/yyyy")
+                        </div>
+
+                    </td>
+                    <td>
+                        <table>
+                            <tbody>
+                                @foreach (var item in order.MyOrderViewModel.DrinkOrderInfo)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Name
+                                        </td>
+                                        <td>
+                                            $@item.Price * @item.Qty
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        $@order.MyOrderViewModel.OrderTotal
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

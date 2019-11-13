@@ -1,0 +1,30 @@
+﻿
+@if (User.Identity.IsAuthenticated == false)
+{
+    <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+    <span class="linedivide1"></span>
+    <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+}
+else
+{
+    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Hi, @(User.Identity.Name ?? "User")!
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @if (User.IsInRole("User") == true)
+        {
+            <li><a style="padding-left:40px" asp-area="" asp-controller="" asp-action="">My Orders</a></li>
+        }
+        @if (User.IsInRole("Staff") == true)
+        {
+            <li><a style="padding-left:40px" asp-area="" asp-controller="" asp-action="">Dashboard</a></li>
+        }
+        @if (User.IsInRole("Admin") == true)
+        {
+            <li><a style="padding-left:40px" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboard</a></li>
+        }
+        <li>
+            <a style="padding-left:40px" asp-controller="Account" asp-action="Logout">Logout</a>
+        </li>
+    </ul>
+}

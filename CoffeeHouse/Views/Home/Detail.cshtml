@@ -1,0 +1,62 @@
+﻿@*@model CoffeeHouse.Data.Models.Drink
+    @{
+        ViewData["Title"] = "Detail";
+    }
+
+    <h1>Chi tiết</h1>
+    <table>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Hình ảnh</th>
+            <th>Loại sản phẩm</th>
+            <th>Mô tả</th>
+            <th>Giá</th>
+        </tr>
+        <tr>
+            <td>@Model.DrinkName</td>
+            <td>
+                <img style="width:150px" src="~/img/Drinks/@Model.Photo" alt="Drink" />
+            </td>
+            <td>@Model.Category.CategoryName</td>
+            <td>@Model.Description</td>
+            <td>@Model.Price</td>
+        </tr>
+    </table>*@
+@model CoffeeHouse.Data.Models.Drink
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<section class="home-slider owl-carousel">
+    <div class="slider-item" style="background-image: url(/CoffeeShop/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread">CHI TIẾT SẢN PHẨM</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a asp-area="" asp-action="Index">TRANG CHỦ</a></span> <span>CHI TIẾT SẢN PHẨM</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate">
+                <a href="~/img/Drinks/@Model.Photo" class="image-popup"><img src="~/img/Drinks/@Model.Photo" class="img-fluid" alt="Colorlib Template"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>@Model.DrinkName</h3>
+                <p class="price"><span>$@String.Format("{0:0.00}", Model.Price)</span></p>
+                <p>@Model.Description</p>
+                <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-drinkId="@Model.Id">
+                    <input class="btn btn-primary btn-outline-primary py-3 px-5" type="submit" value="Thêm vào giỏ hàng" />
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

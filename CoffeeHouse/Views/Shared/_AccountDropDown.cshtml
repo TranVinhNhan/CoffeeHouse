@@ -1,0 +1,23 @@
+﻿
+@if (User.Identity.IsAuthenticated == false)
+{
+    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Register">ĐĂNG KÍ</a>
+    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Login">ĐĂNG NHẬP</a>
+}
+else
+{  
+    <a class="dropdown-item">Hi, @(User.Identity.Name ?? "User")!</a>
+    @if (User.IsInRole("User") == true)
+    {
+        <a class="dropdown-item" style="padding-left:40px" asp-area="" asp-controller="Order" asp-action="MyOrder">ĐƠN HÀNG CỦA TÔI</a>
+    }
+    @if (User.IsInRole("Staff") == true)
+    {
+        <a class="dropdown-item" style="padding-left:40px" asp-area="" asp-controller="Order" asp-action="AllOrders">Dashboard</a>
+    }
+    @if (User.IsInRole("Admin") == true)
+    {
+        <a class="dropdown-item" style="padding-left:40px" asp-area="Admin" asp-controller="Home" asp-action="Index">DASHBOARD</a>
+    }
+        <a class="dropdown-item" style="padding-left:40px" asp-controller="Account" asp-action="Logout">ĐĂNG XUẤT</a>
+}

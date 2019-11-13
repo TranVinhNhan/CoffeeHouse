@@ -1,0 +1,46 @@
+﻿@model CoffeeHouse.Data.Models.TableRequest
+
+<div class="book p-4">
+    <h3>Đặt bàn</h3>
+    <form asp-area="" asp-controller="Order" asp-action="RequestTable" class="appointment-form">
+        <div class="d-md-flex">
+            <div class="form-group">
+                <input asp-for="FirstName" type="text" class="form-control" placeholder="Họ">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group ml-md-4">
+                <input asp-for="LastName" type="text" class="form-control" placeholder="Tên">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="d-md-flex">
+            <div class="form-group">
+                <div class="input-wrap">
+                    <div class="icon"><span class="ion-md-calendar"></span></div>
+                    <input asp-for="Date" type="text" class="form-control appointment_date" placeholder="Ngày">
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group ml-md-4">
+                <div class="input-wrap">
+                    <div class="icon"><span class="ion-ios-clock"></span></div>
+                    <input asp-for="Time" type="text" class="form-control appointment_time" placeholder="Giờ">
+                    <span asp-validation-for="Time" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group ml-md-4">
+                <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Số điện thoại">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="d-md-flex">
+            <div class="form-group">
+                @*<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Lời nhắn"></textarea>*@
+                <input asp-for="Note" type="text" class="form-control" placeholder="Lời nhắn">
+            </div>
+            <div class="form-group ml-md-4">
+                <input type="submit" value="Đặt lịch" class="btn btn-white py-3 px-4">
+            </div>
+        </div>
+    </form>
+</div>

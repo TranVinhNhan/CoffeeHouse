@@ -1,0 +1,46 @@
+﻿@model CoffeeHouse.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="home-slider owl-carousel">
+    <div class="slider-item" style="background-image: url(/CoffeeShop/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread">ĐĂNG NHẬP</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a asp-area="" asp-action="Index">TRANG CHỦ</a></span> <span>ĐĂNG NHẬP</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<h1 class="pt-5 text-center">Đăng nhập</h1>
+<form class="p-5" asp-controller="Account" asp-action="Login" method="post">
+    <div class="form-group">
+        <label asp-for="UserName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+        <input asp-for="UserName" class="form-control" placeholder="Tên tài khoản" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"><i class="zmdi zmdi-lock"></i></label>
+        <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="RememberMe" class="agree-term" />
+        <label asp-for="RememberMe" class="label-agree-term"><span><span></span></span>@Html.DisplayNameFor(m => m.RememberMe)</label>
+    </div>
+    <div class="form-group form-button">
+        <button type="submit" class="form-submit btn btn-primary btn-outline-primary py-3 px-5">
+            Đăng nhập
+        </button>
+        <button class="form-submit btn btn-primary btn-outline-primary py-3 px-5" asp-controller="Home" asp-action="Index">
+            Trở lại
+        </button>
+    </div>
+    <a asp-area="" asp-controller="Account" asp-action="Register" class="signup-image-link" style="text-align: left;">Tạo tài khoản</a>
+</form>
+

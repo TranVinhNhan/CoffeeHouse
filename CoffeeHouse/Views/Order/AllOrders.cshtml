@@ -1,0 +1,18 @@
+﻿@model CoffeeHouse.ViewModels.ListOrdersWithId
+
+@{
+    ViewData["Title"] = "AllOrders";
+    @if (User.IsInRole("Admin") == true)
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Staff/Views/Shared/_LayoutStaff.cshtml";
+    }
+
+}
+
+<h1>Đơn hàng</h1>
+
+@await Html.PartialAsync("OrderList", Model)

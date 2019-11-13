@@ -1,0 +1,136 @@
+﻿@model CoffeeHouse.ViewModels.PaginatedListDrink<CoffeeHouse.Data.Models.Drink>
+
+@{
+    ViewData["Title"] = "Index";
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/js/site.js"></script>
+
+<h2>Quản lý sản phẩm</h2>
+
+<a class="btn btn-primary" asp-area="Admin" asp-controller="Home" asp-action="Add">Thêm sản phẩm</a>
+<form asp-area="Admin" asp-controller="Home" asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData[" currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-primary" /> | <a class="btn btn-primary" asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<div class="col-md-3">
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData[" CurrentSort"]"
+       asp-route-page="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData[" CurrentFilter"]"
+       class="btn btn-primary @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData[" CurrentSort"]"
+       asp-route-page="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData[" CurrentFilter"]"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
+</div>
+
+<table class="table table-striped text-center table-hover">
+    <tr>
+        <th>Thức uống</th>
+        <th>Hình ảnh</th>
+        <th>Mô tả</th>
+        <th>Giá tiền</th>
+        <th>Loại thức uống</th>
+        <th>Hành động</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.DrinkName</td>
+            <td><img style="width:150px;" src="~/img/Drinks/@item.Photo" /></td>
+            <td>@item.Description</td>
+            <td>@item.Price</td>
+            <td>@item.Category.CategoryName</td>
+            <td>
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id">Chi tiết</a>
+                <span>|</span>
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="Home" asp-action="Edit" asp-route-drinkId="@item.Id">Chỉnh sửa</a>
+                <span>|</span>
+                <a data-id="@item.Id"
+                   data-area="Admin"
+                   data-controller="Home"
+                   data-action="Delete"
+                   data-body-message="Xác nhận xóa @item.DrinkName ?"
+                   data-ajax="true"
+                   data-ajax-success="deleteItem(this)"
+                   class="btn btn-danger btn-sm delete">Xóa</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Warning</h4>
+            </div>
+            <div class="modal-body delete-modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel-delete">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var url;
+        var redirectUrl;
+        var target;
+        $(".delete").on('click', (e) => {
+            e.preventDefault();
+            target = e.target;
+            var Id = $(target).data('id');
+            var area = $(target).data('area');
+            var controller = $(target).data('controller');
+            var action = $(target).data('action');
+            var bodyMessage = $(target).data('body-message');
+            redirectUrl = $(target).data('redirect-url');
+            url = "/" + area + "/" + controller + "/" + action + "?id=" + Id;
+            $(".delete-modal-body").text(bodyMessage);
+            $("#deleteModal").modal('show');
+        });
+        $("#confirm-delete").on('click', () => {
+            $.get(url)
+                .done((result) => {
+                    if (!redirectUrl) {
+                        return $(target).parent().parent().hide("slow");
+                    }
+                    window.location.href = redirectUrl;
+                })
+                .fail((error) => {
+                    if (redirectUrl)
+                        window.location.href = redirectUrl;
+                }).always(() => {
+                    $("#deleteModal").modal('hide');
+                });
+        });
+    });
+</script>
+<script>
+    function deleteItem(form) {
+        $(form).parents('li').remove();
+    }
+</script>

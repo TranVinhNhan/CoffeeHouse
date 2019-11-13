@@ -1,0 +1,10 @@
+﻿@model CoffeeHouse.ViewModels.ShoppingCartViewModel
+
+@if (Model.ShoppingCartItemsTotal > 0)
+{
+    <span class="bag d-flex justify-content-center align-items-center">
+        <small>
+            @Model.ShoppingCartItemsTotal
+        </small>
+    </span>
+}

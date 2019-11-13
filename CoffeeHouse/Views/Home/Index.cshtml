@@ -1,0 +1,574 @@
+﻿@*@model IEnumerable<CoffeeHouse.Data.Models.Drink>
+
+    @{
+        ViewData["Title"] = "Home Page";
+    }
+    <table>
+        <tr>
+            <th>Thức uống</th>
+            <th>Hình ảnh</th>
+            <th>Mô tả</th>
+            <th>Giá tiền</th>
+            <th>Loại thức uống</th>
+            <th>Mua</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a asp-area="" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id">@item.DrinkName</a></td>
+                <td><img style="width:150px;" src="~/img/Drinks/@item.Photo" /></td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>@item.Category.CategoryName</td>
+                <td>
+                    <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-drinkId="@item.Id">
+                        <button type="submit">Thêm vào giỏ hàng</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>*@
+
+
+@model CoffeeHouse.ViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<section class="home-slider owl-carousel">
+    <div class="slider-item" style="background-image: url(/CoffeeShop/images/bg_1.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                <div class="col-md-8 col-sm-12 text-center ftco-animate">
+                    <span class="subheading">Xin Chào</span>
+                    <h1 class="mb-4">Trải Nghiệm Hương Vị Coffee Thượng Hạng</h1>
+                    <p><a asp-area="" asp-controller="ShoppingCart" asp-action="Index" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt hàng ngay</a> <a asp-area="" asp-controller="Home" asp-action="Menu" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem thực đơn</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slider-item" style="background-image: url(/CoffeeShop/images/bg_2.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                <div class="col-md-8 col-sm-12 text-center ftco-animate">
+                    <span class="subheading">Xin Chào</span>
+                    <h1 class="mb-4">Thưởng Thức &amp; Phong Cảnh Đẹp</h1>
+                    <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt hàng ngay</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem thực đơn</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slider-item" style="background-image: url(/CoffeeShop/images/bg_3.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                <div class="col-md-8 col-sm-12 text-center ftco-animate">
+                    <span class="subheading">Xin Chào</span>
+                    <h1 class="mb-4">Sẵn Sàng Phục Vụ Đồ Uống Nóng</h1>
+                    <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt hàng ngay</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem thực đơn</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-intro">
+    <div class="container-wrap">
+        <div class="wrap d-md-flex align-items-xl-end">
+            <div class="info">
+                <div class="row no-gutters">
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="icon"><span class="icon-phone"></span></div>
+                        <div class="text">
+                            <h3>123 456 7890</h3>
+                            <p>Liên hệ và giải đáp thắc mắc về dịch vụ của chúng tôi</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="icon"><span class="icon-my_location"></span></div>
+                        <div class="text">
+                            <h3>233, Ba Tháng Hai</h3>
+                            <p>Phường 10, Quận 10, Thành Phố Hồ Chí Minh</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="icon"><span class="icon-clock-o"></span></div>
+                        <div class="text">
+                            <h3>Mở cửa từ thứ hai đến thứ bảy</h3>
+                            <p>8:00am - 10:00pm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*@await  Component.InvokeAsync("TableRequestComponent", Model.Request)*@
+            @await  Html.PartialAsync("RequestTable", Model.Request)
+            @*<div class="book p-4">
+                <h3>Đặt bàn</h3>
+                <form action="#" class="appointment-form">
+                    <div class="d-md-flex">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Họ">
+                        </div>
+                        <div class="form-group ml-md-4">
+                            <input type="text" class="form-control" placeholder="Tên">
+                        </div>
+                    </div>
+                    <div class="d-md-flex">
+                        <div class="form-group">
+                            <div class="input-wrap">
+                                <div class="icon"><span class="ion-md-calendar"></span></div>
+                                <input type="text" class="form-control appointment_date" placeholder="Ngày">
+                            </div>
+                        </div>
+                        <div class="form-group ml-md-4">
+                            <div class="input-wrap">
+                                <div class="icon"><span class="ion-ios-clock"></span></div>
+                                <input type="text" class="form-control appointment_time" placeholder="Giờ">
+                            </div>
+                        </div>
+                        <div class="form-group ml-md-4">
+                            <input type="text" class="form-control" placeholder="Số điện thoại">
+                        </div>
+                    </div>
+                    <div class="d-md-flex">
+                        <div class="form-group">
+                            <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Lời nhắn"></textarea>
+                        </div>
+                        <div class="form-group ml-md-4">
+                            <input type="submit" value="Đặt lịch" class="btn btn-white py-3 px-4">
+                        </div>
+                    </div>
+                </form>
+            </div>*@
+        </div>
+    </div>
+</section>
+<section class="ftco-about d-md-flex">
+    <div class="one-half img" style="background-image: url(/CoffeeShop/images/about.jpg);"></div>
+    <div class="one-half ftco-animate">
+        <div class="overlap">
+            <div class="heading-section ftco-animate ">
+                <span class="subheading">Khám Phá</span>
+                <h2 class="mt-3 mb-4">Câu Chuyện Về Chúng Tôi</h2>
+            </div>
+            <div>
+                <p>Chúng tôi tin rằng từng sản phẩm và cà phê sẽ càng thêm hảo hạng khi được tạo ra từ sự phấn đấu không ngừng cùng niềm đam mê. Và chính kết nối dựa trên niềm tin, sự trung thực và tin yêu góp phần mang đến những nét đẹp trong văn hóa thưởng thức & cà phê ngày càng bay cao và vươn xa.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section ftco-services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 ftco-animate">
+                <div class="media d-block text-center block-6 services">
+                    <div class="icon d-flex justify-content-center align-items-center mb-5">
+                        <span class="flaticon-choices"></span>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading">Dễ Dàng Đặt Hàng</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="media d-block text-center block-6 services">
+                    <div class="icon d-flex justify-content-center align-items-center mb-5">
+                        <span class="flaticon-delivery-truck"></span>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading">Giao Hàng Nhanh Chóng</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="media d-block text-center block-6 services">
+                    <div class="icon d-flex justify-content-center align-items-center mb-5">
+                        <span class="flaticon-coffee-bean"></span>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading">Coffee Chất Lượng</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 pr-md-5">
+                <div class="heading-section text-md-right ftco-animate">
+                    <span class="subheading">Khám Phá</span>
+                    <h2 class="mt-3 mb-4">Thực Đơn</h2>
+                    <p class="mb-4">Từ khát khao mang đến những thức uống tươi ngon, đậm vị được pha chế trực tiếp, phục vụ tận tay khách hàng với phong cách hiện đại và mức giá hợp lý.</p>
+                    <p><a asp-area="" asp-controller="Home" asp-action="Menu" class="btn btn-primary btn-outline-primary px-4 py-3">Xem Thực Đơn</a></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    @foreach (var item in Model.Drinks.Take(4))
+                    {
+                        <div class="col-md-6">
+                            <div class="menu-entry">
+                                <a asp-area="" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id" class="mt-4 img" style="background-image: url(/img/Drinks/@item.Photo);"></a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url(/CoffeeShop/images/bg_2.jpg);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-coffee-cup"></span></div>
+                                <strong class="number" data-number="20">0</strong>
+                                <span>Các loại Coffee</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-coffee-cup"></span></div>
+                                <strong class="number" data-number="12458">0</strong>
+                                <span>Số lượng bán được</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-coffee-cup"></span></div>
+                                <strong class="number" data-number="11567">0</strong>
+                                <span>Khách hàng hài lòng</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-coffee-cup"></span></div>
+                                <strong class="number" data-number="100">0</strong>
+                                <span>Nhân viên</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <span class="subheading">Khám Phá</span>
+                <h2 class="mt-3 mb-4">Các Loại Coffee Bán Chạy</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Drinks.Take(4))
+            {
+                <div class="col-md-3">
+                    <div class="menu-entry">
+                        <a asp-area="" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id" class="img" style="background-image: url(/img/Drinks/@item.Photo);"></a>
+                        <div class="text text-center pt-4">
+                            <h3><a asp-area="" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id">@item.DrinkName</a></h3>
+                            <p>@item.Description</p>
+                            <p class="price"><span>$@String.Format("{0:0.00}", item.Price)</span></p>
+                            <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-drinkId="@item.Id">
+                                <input class="btn btn-primary btn-outline-primary py-3 px-5" type="submit" value="Thêm vào giỏ hàng" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }   
+        </div>
+    </div>
+</section>
+<section class="ftco-gallery">
+    <div class="container-wrap">
+        <div class="row no-gutters">
+            <div class="col-md-3 ftco-animate">
+                <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(/CoffeeShop/images/gallery-1.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-search"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 ftco-animate">
+                <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(/CoffeeShop/images/gallery-2.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-search"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 ftco-animate">
+                <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(/CoffeeShop/images/gallery-3.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-search"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 ftco-animate">
+                <a href="#" class="gallery img d-flex align-items-center" style="background-image: url(/CoffeeShop/images/gallery-4.jpg);">
+                    <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                        <span class="icon-search"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-menu">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Khám Phá</span>
+                <h2 class="mt-3 mb-4">Sản Phẩm Của Chúng Tôi</h2>
+            </div>
+        </div>
+        <div class="row d-md-flex">
+            <div class="col-lg-12 ftco-animate p-md-5">
+                <div class="row">
+                    <div class="col-md-12 nav-link-wrap mb-5">
+                        <div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Thức Ăn</a>
+                            <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Đồ Uống</a>
+                            <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Tráng Miệng</a>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex align-items-center">
+
+                        <div class="tab-content ftco-animate" id="v-pills-tabContent">        
+                            <!--Đồ ăn-->
+                            <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+                                <div class="row">
+                                    @foreach (var item in Model.Drinks)
+                                    {
+                                        if (item.Category.CategoryName == "Đồ ăn")
+                                        {
+                                            <div class="col-md-4 text-center">
+                                                <div class="menu-wrap">
+                                                    <a asp-area="" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id" class="menu-img img mb-4" style="background-image: url(/img/Drinks/@item.Photo);"></a>
+                                                    <div class="text">
+                                                        <h3><a href="#">@item.DrinkName</a></h3>
+                                                        <p>@item.Description</p>
+                                                        <p class="price"><span>$@String.Format("{0:0.00}", item.Price)</span></p>
+                                                        <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-drinkId="@item.Id">
+                                                            <input class="btn btn-primary btn-outline-primary py-3 px-5" type="submit" value="Thêm vào giỏ hàng" />
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <!--Thức uống-->
+                            <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
+                                <div class="row">
+                                    @foreach (var item in Model.Drinks)
+                                    {
+                                        if (item.Category.CategoryName == "Thức uống")
+                                        {
+                                            <div class="col-md-4 text-center">
+                                                <div class="menu-wrap">
+                                                    <a asp-area="" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id" class="menu-img img mb-4" style="background-image: url(/img/Drinks/@item.Photo);"></a>
+                                                    <div class="text">
+                                                        <h3><a href="#">@item.DrinkName</a></h3>
+                                                        <p>@item.Description</p>
+                                                        <p class="price"><span>$@String.Format("{0:0.00}", item.Price)</span></p>
+                                                        <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-drinkId="@item.Id">
+                                                            <input class="btn btn-primary btn-outline-primary py-3 px-5" type="submit" value="Thêm vào giỏ hàng" />
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <!--Tráng miệng-->
+                            <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
+                                <div class="row">
+                                    @foreach (var item in Model.Drinks)
+                                    {
+                                        if (item.Category.CategoryName == "Tráng miệng")
+                                        {
+                                            <div class="col-md-4 text-center">
+                                                <div class="menu-wrap">
+                                                    <a asp-area="" asp-controller="Home" asp-action="Detail" asp-route-drinkId="@item.Id" class="menu-img img mb-4" style="background-image: url(/img/Drinks/@item.Photo);"></a>
+                                                    <div class="text">
+                                                        <h3><a href="#">@item.DrinkName</a></h3>
+                                                        <p>@item.Description</p>
+                                                        <p class="price"><span>$@String.Format("{0:0.00}", item.Price)</span></p>
+                                                        <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-drinkId="@item.Id">
+                                                            <input class="btn btn-primary btn-outline-primary py-3 px-5" type="submit" value="Thêm vào giỏ hàng" />
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section img" id="ftco-testimony" style="background-image: url(/CoffeeShop/images/bg_1.jpg);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Nhận Xét</span>
+                <h2 class="mt-3 mb-4">Khách Hàng Nói Về Chúng Tôi</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-wrap">
+        <div class="row d-flex no-gutters">
+            <div class="col-lg align-self-sm-end ftco-animate">
+                <div class="testimony">
+                    <blockquote>
+                        <p>&ldquo;Tôi hài lòng với cách phục vụ của nhân viên ở đây, đồ ăn thức uống thì không phải bàn quá ngon lại còn rẻ nữa chứ. Nếu có dịp các bạn nên ghé qua đây để thưởng thức.&rdquo;</p>
+                    </blockquote>
+                    <div class="author d-flex mt-4">
+                        <div class="image mr-3 align-self-center">
+                            <img src="~/CoffeeShop/images/person_3.jpg" alt="">
+                        </div>
+                        <div class="name align-self-center">Sara<span class="position">Khách hàng vip</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg align-self-sm-end">
+                <div class="testimony overlay">
+                    <blockquote>
+                        <p>&ldquo;Tôi hài lòng với cách phục vụ của nhân viên ở đây, đồ ăn thức uống thì không phải bàn quá ngon lại còn rẻ nữa chứ. Nếu có dịp các bạn nên ghé qua đây để thưởng thức.&rdquo;</p>
+                    </blockquote>
+                    <div class="author d-flex mt-4">
+                        <div class="image mr-3 align-self-center">
+                            <img src="~/CoffeeShop/images/person_2.jpg" alt="">
+                        </div>
+                        <div class="name align-self-center">Johnny<span class="position">Khách hàng thường</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg align-self-sm-end ftco-animate">
+                <div class="testimony">
+                    <blockquote>
+                        <p>&ldquo;Tôi hài lòng với cách phục vụ của nhân viên ở đây, đồ ăn thức uống thì không phải bàn quá ngon lại còn rẻ nữa chứ. Nếu có dịp các bạn nên ghé qua đây để thưởng thức.&rdquo;</p>
+                    </blockquote>
+                    <div class="author d-flex mt-4">
+                        <div class="image mr-3 align-self-center">
+                            <img src="~/CoffeeShop/images/person_3.jpg" alt="">
+                        </div>
+                        <div class="name align-self-center">Sara<span class="position">Khách hàng vip</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg align-self-sm-end">
+                <div class="testimony overlay">
+                    <blockquote>
+                        <p>&ldquo;Tôi hài lòng với cách phục vụ của nhân viên ở đây, đồ ăn thức uống thì không phải bàn quá ngon lại còn rẻ nữa chứ. Nếu có dịp các bạn nên ghé qua đây để thưởng thức.&rdquo;</p>
+                    </blockquote>
+                    <div class="author d-flex mt-4">
+                        <div class="image mr-3 align-self-center">
+                            <img src="~/CoffeeShop/images/person_2.jpg" alt="">
+                        </div>
+                        <div class="name align-self-center">Johnny<span class="position">Khách hàng thường</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg align-self-sm-end ftco-animate">
+                <div class="testimony">
+                    <blockquote>
+                        <p>&ldquo;Tôi hài lòng với cách phục vụ của nhân viên ở đây, đồ ăn thức uống thì không phải bàn quá ngon lại còn rẻ nữa chứ. Nếu có dịp các bạn nên ghé qua đây để thưởng thức.&rdquo;</p>
+                    </blockquote>
+                    <div class="author d-flex mt-4">
+                        <div class="image mr-3 align-self-center">
+                            <img src="~/CoffeeShop/images/person_3.jpg" alt="">
+                        </div>
+                        <div class="name align-self-center">Sara<span class="position">Khách hàng vip</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 class="mb-4">Các Blog Gần Đây</h2>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-md-4 d-flex ftco-animate">
+                <div class="blog-entry align-self-stretch">
+                    <a href="#" class="block-20" style="background-image: url('/CoffeeShop/images/image_1.jpg');">
+                    </a>
+                    <div class="text py-4 d-block">
+                        <div class="meta">
+                            <div><a href="#">Sept 10, 2019</a></div>
+                            <div><a href="#">Admin</a></div>
+                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                        </div>
+                        <h3 class="heading mt-2"><a href="#">Đồ Ăn Ngon</a></h3>
+                        <p>Hi! Ngon, bổ, rẻ. Không thể chê vào đâu được.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+                <div class="blog-entry align-self-stretch">
+                    <a href="#" class="block-20" style="background-image: url('/CoffeeShop/images/image_2.jpg');">
+                    </a>
+                    <div class="text py-4 d-block">
+                        <div class="meta">
+                            <div><a href="#">Sept 10, 2019</a></div>
+                            <div><a href="#">Admin</a></div>
+                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                        </div>
+                        <h3 class="heading mt-2"><a href="#">Đồ Ăn Ngon</a></h3>
+                        <p>Hi! Ngon, bổ, rẻ. Không thể chê vào đâu được.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+                <div class="blog-entry align-self-stretch">
+                    <a href="#" class="block-20" style="background-image: url('/CoffeeShop/images/image_3.jpg');">
+                    </a>
+                    <div class="text py-4 d-block">
+                        <div class="meta">
+                            <div><a href="#">Sept 10, 2019</a></div>
+                            <div><a href="#">Admin</a></div>
+                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                        </div>
+                        <h3 class="heading mt-2"><a href="#">Đồ Ăn Ngon</a></h3>
+                        <p>Hi! Ngon, bổ, rẻ. Không thể chê vào đâu được.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
